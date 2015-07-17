@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -113,21 +114,15 @@ public class Run implements Runnable {
         ArrayList<File> listChangeFolder = JFolderChooser.listRawFilesForFolder(newFiles, true);
 
         File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
-
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(configFile));
 
             String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    // process the line.
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+            while ((line = br.readLine()) != null) {
+                // process the line.
             }
-
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
         }
 
