@@ -7,8 +7,11 @@ package e.refactor.view;
 
 import e.utility.FilesUtility;
 import e.utility.JFolderChooser;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -29,8 +32,9 @@ public class Run implements Runnable {
     private JLabel lblData = null;
     private boolean isIgnoreFather = false;
     private File baseFileDirectory;
-    
+
     final String CHANGE_DIR = "change_files/";
+    final String CONFIG_FILE = "config.txt";
 
     PrintWriter newLog;
     String strNameLog = "READLOG";
@@ -84,7 +88,7 @@ public class Run implements Runnable {
             Exec(strparams);
         }
     }
-    
+
     private void Init(String[] args) {
         System.out.println("Program Arguments:");
         for (String arg : args) {
@@ -103,18 +107,33 @@ public class Run implements Runnable {
 
     public void Exec(String[] args) {
         Init(args);
-        
+
         ArrayList<File> listFilesForFolder = JFolderChooser.listRawFilesForFolder(baseFileDirectory, true);
         File newFiles = new File(FilesUtility.strRoot.concat(File.separator).concat(CHANGE_DIR));
         ArrayList<File> listChangeFolder = JFolderChooser.listRawFilesForFolder(newFiles, true);
-        
-        
-        
-        for(File file: listFilesForFolder){
-            
+
+        File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
+
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader(configFile));
+
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    // process the line.
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (File file : listFilesForFolder) {
+
         }
     }
-
-    
 
 }
