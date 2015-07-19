@@ -5,22 +5,26 @@
  */
 package e.refactor.view;
 
+import e.refactor.model.ZipFile2Change;
 import e.utility.FilesUtility;
 import e.utility.JFolderChooser;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
-import javax.xml.transform.TransformerException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +35,7 @@ public class Run implements Runnable {
     private boolean isCopy = true;
     private String strPath;
     private JLabel lblData = null;
-    private boolean isIgnoreFather = false;
+    private boolean addFilesNoExisting = false;
     private File baseFileDirectory;
 
     final String CHANGE_DIR = "change_files/";
@@ -47,14 +51,14 @@ public class Run implements Runnable {
         Object[] objData = (Object[]) params;
 
         this.isCopy = ((Boolean) objData[2]);
-        this.isIgnoreFather = ((Boolean) objData[3]);
+        this.addFilesNoExisting = ((Boolean) objData[3]);
 
         this.strPath = ((String) objData[0]);
         this.lblData = ((JLabel) objData[1]);
     }
 
     private Run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void Log(String strLog) {
@@ -115,20 +119,55 @@ public class Run implements Runnable {
 
         File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
         BufferedReader br;
+
+        HashMap<String, String> arrconfigFile = new HashMap<>();
+        String str2, str1 = null;
+
+        int cont = 0;
         try {
             br = new BufferedReader(new FileReader(configFile));
-
             String line;
             while ((line = br.readLine()) != null) {
-                // process the line.
+                cont++;
+                if (cont == 1) {
+                    str1 = line;
+                } else {
+                    str2 = line;
+                    arrconfigFile.put(str2, str1);
+                    cont = 0;
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (File file : listFilesForFolder) {
+        HashMap<String, File> arrConfig = new HashMap<>();
 
+        for (File file : listChangeFolder) {
+            if (arrconfigFile.containsKey(file.getName())) {
+                arrConfig.put(arrconfigFile.get(file.getName()), file);
+                Log("Preparing...: \t[" + file.getName() + "]");
+            } else {
+                Log("NOT FOUND: \t[" + file.getName() + "]");
+            }
         }
+
+        //ArrayList<ZipFile2Change> arrFiles = new ArrayList<>();
+        for (File file : listFilesForFolder) {
+            if (file.getName().endsWith(".zip")) {
+                
+                try {
+                    new ZipFile2Change(file, new HashMap<>(arrConfig), addFilesNoExisting).SaveChanges();
+                    Log("Saving Changes: \t[" + file.getName() + "]");
+                } catch (IOException ex) {
+                    Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        this.newLog.close();
+        JOptionPane.showMessageDialog(null, "Operación exitosa");
+        System.exit(0);
     }
 
 }

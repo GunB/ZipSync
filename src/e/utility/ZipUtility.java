@@ -5,6 +5,8 @@
  */
 package e.utility;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +15,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -22,9 +25,8 @@ import java.util.zip.ZipOutputStream;
  * @author hangarita
  */
 public class ZipUtility {
-    
+
     //File newFile;
-    
     String strPath;
     String strName;
     String strNewSufij = ".eFixed";
@@ -49,13 +51,12 @@ public class ZipUtility {
         System.out.println("Name: " + this.strName);
         System.out.println("File: " + this.zipFile.getName());
     }
-    
-    public HashMap<String, InputStream> ReadFiles(){
+
+    public HashMap<String, InputStream> ReadFiles() {
         return null;
     }
-    
-    public void WriteFiles(HashMap<String, InputStream> files2Change)
-            throws IOException {
+
+    public void WriteFiles(HashMap<String, File> files2Changes, Boolean writeNewFiles) throws IOException {
         String strOldFile = this.strPath.concat(File.separator).concat(this.strName);
 
         String strNewFile = this.strPath.concat(File.separator).concat(this.strName).concat(this.strNewSufij);
@@ -63,8 +64,8 @@ public class ZipUtility {
 
         ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(newFile), StandardCharsets.UTF_8);
         System.out.println("Saving [File]: " + strNewFile);
-        
-        //XMLUtility.printDocument(doc, System.out);
+
+        HashMap<String, File> files2Change = (HashMap<String, File>) files2Changes.clone();
 
         for (Enumeration e = this.zipFile.entries(); e.hasMoreElements();) {
             ZipEntry entryIn = new ZipEntry((ZipEntry) e.nextElement());
@@ -81,26 +82,45 @@ public class ZipUtility {
                     zos.write(buf, 0, len);
                 }
             } else {
+                System.out.println(entryIn.getName());
                 ZipEntry destEntry = new ZipEntry(entryIn.getName());
                 zos.putNextEntry(destEntry);
-                
-                //InputStream is = new FileInputStream(files2Change.get(entryIn.getName()));
-                
-                InputStream is = files2Change.get(entryIn.getName());
-                
+
+                InputStream is = new FileInputStream(files2Change.get(entryIn.getName()));
+
                 byte[] buf = new byte['Ѐ'];
                 int len;
                 while ((len = is.read(buf)) > 0) {
                     zos.write(buf, 0, len);
                 }
+
                 files2Change.remove(entryIn.getName());
-                //XMLUtility.printDocument(doc, zos);
+
+                is.close();
             }
             zos.closeEntry();
         }
-        
-        
-        
+        if (writeNewFiles) {
+
+            for (Map.Entry<String, File> entry : files2Change.entrySet()) {
+                String key = entry.getKey();
+                File value = entry.getValue();
+                
+                System.out.println(key);
+                ZipEntry destEntry = new ZipEntry(key);
+                zos.putNextEntry(destEntry);
+                
+                InputStream is = new FileInputStream(value);
+                byte[] buf = new byte['Ѐ'];
+                int len;
+                while ((len = is.read(buf)) > 0) {
+                    zos.write(buf, 0, len);
+                }
+                is.close();
+                zos.closeEntry();
+            }
+        }
+
         zos.close();
 
         this.zipFile.close();

@@ -39,6 +39,7 @@ public class Index extends javax.swing.JFrame {
             Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.setOut(con);
+        System.out.println("Welcome!");
     }
 
     private void SearchingFolder() {
@@ -47,6 +48,7 @@ public class Index extends javax.swing.JFrame {
             this.btnRead.setEnabled(true);
         } catch (Exception ex) {
             this.btnRead.setEnabled(false);
+            txtFolderProyect.setText("");
         }
     }
 
@@ -72,6 +74,7 @@ public class Index extends javax.swing.JFrame {
         txtConsole = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         chkCopyAll = new javax.swing.JCheckBox();
+        chkAddNewFiles = new javax.swing.JCheckBox();
         lblMessage = new javax.swing.JLabel();
         btnFix = new javax.swing.JButton();
 
@@ -281,21 +284,28 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        chkAddNewFiles.setSelected(true);
+        chkAddNewFiles.setText("Agregar archivos que no se encuentren en los archivos seleccionados");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chkCopyAll)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkCopyAll)
+                    .addComponent(chkAddNewFiles))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chkCopyAll)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chkAddNewFiles)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         tbbData.addTab("Opciones", jPanel2);
@@ -421,7 +431,12 @@ public class Index extends javax.swing.JFrame {
 
         this.lblMessage.setText("Trabajando...");
 
-        Object[] objParams = {strPath, this.lblMessage,this.chkCopyAll.isSelected()};
+        Object[] objParams = {
+            strPath,
+            this.lblMessage,
+            this.chkCopyAll.isSelected(),
+            this.chkAddNewFiles.isSelected()
+        };
 
         this.tbbData.setSelectedIndex(1);
 
@@ -473,6 +488,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnFix;
     private javax.swing.JButton btnRead;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JCheckBox chkAddNewFiles;
     private javax.swing.JCheckBox chkCopyAll;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

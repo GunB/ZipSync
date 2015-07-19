@@ -20,14 +20,16 @@ import java.util.Map;
  */
 public class ZipFile2Change {
     ZipUtility zipFile;
-    HashMap<String, InputStream> fileChanges = new HashMap<>();
-    boolean addFilesNoExisting = true;
+    HashMap<String, File> fileChanges;
+    boolean addFilesNoExisting;
 
-    public ZipFile2Change(File fileChange) throws IOException {
+    public ZipFile2Change(File fileChange, HashMap<String, File> fileChanges, Boolean addFilesNoExisting) throws IOException {
         this.zipFile = new ZipUtility(fileChange);
+        this.fileChanges = fileChanges;
+        this.addFilesNoExisting = addFilesNoExisting;
     }
 
-    public HashMap<String, InputStream> getFileChanges() {
+    public HashMap<String, File> getFileChanges() {
         return fileChanges;
     }
 
@@ -35,16 +37,16 @@ public class ZipFile2Change {
         
         HashMap<String, InputStream> fileChanges2 = new HashMap<>();
         
-        for (Map.Entry<String, File> entry : fileChanges.entrySet()) {
+        /*for (Map.Entry<String, File> entry : fileChanges.entrySet()) {
                 String key = entry.getKey();
                 File value = entry.getValue();
                 fileChanges2.put(key, new FileInputStream(value));
-        }
+        }*/
         
-        this.fileChanges = fileChanges2;
+        this.fileChanges = fileChanges;
     }
 
     public void SaveChanges() throws IOException{
-        zipFile.WriteFiles(fileChanges);
+        zipFile.WriteFiles(fileChanges, addFilesNoExisting);
     }
 }
