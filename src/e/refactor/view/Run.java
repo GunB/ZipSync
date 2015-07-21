@@ -10,11 +10,9 @@ import e.utility.FilesUtility;
 import e.utility.JFolderChooser;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -23,6 +21,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -36,11 +35,11 @@ public class Run implements Runnable {
     private String strPath;
     private JLabel lblData = null;
     private boolean addFilesNoExisting = false;
-    private File baseFileDirectory;
+    private String strRegexclude = "";
 
     final String CHANGE_DIR = "change_files/";
     final String CONFIG_FILE = "config.txt";
-
+    private File baseFileDirectory;
     PrintWriter newLog;
     String strNameLog = "READLOG";
 
@@ -52,6 +51,7 @@ public class Run implements Runnable {
 
         this.isCopy = ((Boolean) objData[2]);
         this.addFilesNoExisting = ((Boolean) objData[3]);
+        this.strRegexclude = ((String) objData[4]);
 
         this.strPath = ((String) objData[0]);
         this.lblData = ((JLabel) objData[1]);
@@ -116,6 +116,9 @@ public class Run implements Runnable {
         ArrayList<File> listFilesForFolder = JFolderChooser.listRawFilesForFolder(baseFileDirectory, true);
         File newFiles = new File(FilesUtility.strRoot.concat(File.separator).concat(CHANGE_DIR));
         ArrayList<File> listChangeFolder = JFolderChooser.listRawFilesForFolder(newFiles, true);
+        
+        Pattern p = Pattern.compile(this.strRegexclude);
+        listFilesForFolder.removeIf(s -> p.matcher(s.getName()).matches());
 
         File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
         BufferedReader br;
@@ -143,19 +146,18 @@ public class Run implements Runnable {
 
         HashMap<String, File> arrConfig = new HashMap<>();
 
-        for (File file : listChangeFolder) {
+        listChangeFolder.stream().forEach((file) -> {
             if (arrconfigFile.containsKey(file.getName())) {
                 arrConfig.put(arrconfigFile.get(file.getName()), file);
                 Log("Preparing...: \t[" + file.getName() + "]");
             } else {
                 Log("NOT FOUND: \t[" + file.getName() + "]");
             }
-        }
+        });
 
         //ArrayList<ZipFile2Change> arrFiles = new ArrayList<>();
         for (File file : listFilesForFolder) {
             if (file.getName().endsWith(".zip")) {
-                
                 try {
                     new ZipFile2Change(file, new HashMap<>(arrConfig), addFilesNoExisting).SaveChanges();
                     Log("Saving Changes: \t[" + file.getName() + "]");

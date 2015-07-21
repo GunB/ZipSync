@@ -1,12 +1,10 @@
 assets/sena/downloads/accessibility.pdf
 accessibility.pdf
-assets/sena/common/localization/eng/localize.json
-localize.json
 assets/sena/icons/info_logo.png
 info_logo.png
 index.html
 index.html
-0950/0950_lrg.jpg
-0950_lrg.jpg.jpg
-0950/HEINER/Flash_sentry_by_rainbowderp98-d6am5ru.png
-Flash_sentry_by_rainbowderp98-d6am5ru.png
+watch.min.js
+watch.min.js
+eDistribution.js
+eDistribution.js

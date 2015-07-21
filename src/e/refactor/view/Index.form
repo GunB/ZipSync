@@ -243,13 +243,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="chkCopyAll" min="-2" max="-2" attributes="0"/>
-                              <Component id="chkAddNewFiles" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRegexExclude" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkCopyAll" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAddNewFiles" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkExclude" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="79" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="125" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -260,7 +267,11 @@
                           <Component id="chkCopyAll" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="chkAddNewFiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="175" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="chkExclude" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="txtRegexExclude" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="122" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -278,6 +289,16 @@
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Agregar archivos que no se encuentren en los archivos seleccionados"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkExclude">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Excluir archivos por nombre seg&#xfa;n cumplan con la expresi&#xf3;n regular descrita"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtRegexExclude">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value=" /ob[0-9][0-9].zip$/"/>
                   </Properties>
                 </Component>
               </SubComponents>

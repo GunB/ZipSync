@@ -75,6 +75,8 @@ public class Index extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         chkCopyAll = new javax.swing.JCheckBox();
         chkAddNewFiles = new javax.swing.JCheckBox();
+        chkExclude = new javax.swing.JCheckBox();
+        txtRegexExclude = new javax.swing.JTextField();
         lblMessage = new javax.swing.JLabel();
         btnFix = new javax.swing.JButton();
 
@@ -287,6 +289,10 @@ public class Index extends javax.swing.JFrame {
         chkAddNewFiles.setSelected(true);
         chkAddNewFiles.setText("Agregar archivos que no se encuentren en los archivos seleccionados");
 
+        chkExclude.setText("Excluir archivos por nombre según cumplan con la expresión regular descrita");
+
+        txtRegexExclude.setText(" /ob[0-9][0-9].zip$/");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -294,9 +300,14 @@ public class Index extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkCopyAll)
-                    .addComponent(chkAddNewFiles))
-                .addContainerGap(125, Short.MAX_VALUE))
+                    .addComponent(txtRegexExclude)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkCopyAll)
+                            .addComponent(chkAddNewFiles)
+                            .addComponent(chkExclude))
+                        .addGap(0, 79, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +316,11 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(chkCopyAll)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkAddNewFiles)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chkExclude)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRegexExclude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         tbbData.addTab("Opciones", jPanel2);
@@ -435,7 +450,8 @@ public class Index extends javax.swing.JFrame {
             strPath,
             this.lblMessage,
             this.chkCopyAll.isSelected(),
-            this.chkAddNewFiles.isSelected()
+            this.chkAddNewFiles.isSelected(),
+            chkExclude.isSelected() ? txtRegexExclude.getText() : ""
         };
 
         this.tbbData.setSelectedIndex(1);
@@ -490,6 +506,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chkAddNewFiles;
     private javax.swing.JCheckBox chkCopyAll;
+    private javax.swing.JCheckBox chkExclude;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -501,5 +518,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JTable tblData;
     private javax.swing.JTextArea txtConsole;
     private javax.swing.JTextField txtFolderProyect;
+    private javax.swing.JTextField txtRegexExclude;
     // End of variables declaration//GEN-END:variables
 }
