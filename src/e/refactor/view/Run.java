@@ -35,7 +35,7 @@ public class Run implements Runnable {
     private String strPath;
     private JLabel lblData = null;
     private boolean addFilesNoExisting = false;
-    private String strRegexclude = "";
+    private String strRegInclude = "";
 
     final String CHANGE_DIR = "change_files/";
     final String CONFIG_FILE = "config.txt";
@@ -51,7 +51,7 @@ public class Run implements Runnable {
 
         this.isCopy = ((Boolean) objData[2]);
         this.addFilesNoExisting = ((Boolean) objData[3]);
-        this.strRegexclude = ((String) objData[4]);
+        this.strRegInclude = ((String) objData[4]);
 
         this.strPath = ((String) objData[0]);
         this.lblData = ((JLabel) objData[1]);
@@ -117,8 +117,8 @@ public class Run implements Runnable {
         File newFiles = new File(FilesUtility.strRoot.concat(File.separator).concat(CHANGE_DIR));
         ArrayList<File> listChangeFolder = JFolderChooser.listRawFilesForFolder(newFiles, true);
         
-        Pattern p = Pattern.compile(this.strRegexclude);
-        listFilesForFolder.removeIf(s -> p.matcher(s.getName()).matches());
+        Pattern p = Pattern.compile(this.strRegInclude);
+        listFilesForFolder.removeIf(s -> !p.matcher(s.getName()).matches());
 
         File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
         BufferedReader br;

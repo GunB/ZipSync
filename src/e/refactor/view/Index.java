@@ -75,8 +75,8 @@ public class Index extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         chkCopyAll = new javax.swing.JCheckBox();
         chkAddNewFiles = new javax.swing.JCheckBox();
-        chkExclude = new javax.swing.JCheckBox();
-        txtRegexExclude = new javax.swing.JTextField();
+        chkInclude = new javax.swing.JCheckBox();
+        txtRegexInclude = new javax.swing.JTextField();
         lblMessage = new javax.swing.JLabel();
         btnFix = new javax.swing.JButton();
 
@@ -289,9 +289,9 @@ public class Index extends javax.swing.JFrame {
         chkAddNewFiles.setSelected(true);
         chkAddNewFiles.setText("Agregar archivos que no se encuentren en los archivos seleccionados");
 
-        chkExclude.setText("Excluir archivos por nombre según cumplan con la expresión regular descrita");
+        chkInclude.setText("Incluir SOLO archivos por nombre según cumplan con la expresión regular descrita");
 
-        txtRegexExclude.setText(" /ob[0-9][0-9].zip$/");
+        txtRegexInclude.setText("^.*(ob12\\.zip)$");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,13 +300,13 @@ public class Index extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRegexExclude)
+                    .addComponent(txtRegexInclude)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkCopyAll)
                             .addComponent(chkAddNewFiles)
-                            .addComponent(chkExclude))
-                        .addGap(0, 79, Short.MAX_VALUE)))
+                            .addComponent(chkInclude))
+                        .addGap(0, 51, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -317,9 +317,9 @@ public class Index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkAddNewFiles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkExclude)
+                .addComponent(chkInclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtRegexExclude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtRegexInclude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
@@ -451,7 +451,7 @@ public class Index extends javax.swing.JFrame {
             this.lblMessage,
             this.chkCopyAll.isSelected(),
             this.chkAddNewFiles.isSelected(),
-            chkExclude.isSelected() ? txtRegexExclude.getText() : ""
+            chkInclude.isSelected() ? txtRegexInclude.getText() : "*"
         };
 
         this.tbbData.setSelectedIndex(1);
@@ -506,7 +506,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chkAddNewFiles;
     private javax.swing.JCheckBox chkCopyAll;
-    private javax.swing.JCheckBox chkExclude;
+    private javax.swing.JCheckBox chkInclude;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -518,6 +518,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JTable tblData;
     private javax.swing.JTextArea txtConsole;
     private javax.swing.JTextField txtFolderProyect;
-    private javax.swing.JTextField txtRegexExclude;
+    private javax.swing.JTextField txtRegexInclude;
     // End of variables declaration//GEN-END:variables
 }
