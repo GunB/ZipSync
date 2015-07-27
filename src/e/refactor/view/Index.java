@@ -79,10 +79,14 @@ public class Index extends javax.swing.JFrame {
         txtRegexInclude = new javax.swing.JTextField();
         lblMessage = new javax.swing.JLabel();
         btnFix = new javax.swing.JButton();
+        pnlFolder1 = new javax.swing.JPanel();
+        btnSearch1 = new javax.swing.JButton();
+        txtFolderProyect1 = new javax.swing.JTextField();
+        btnRead1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnlFolder.setBorder(javax.swing.BorderFactory.createTitledBorder("Object Folder"));
+        pnlFolder.setBorder(javax.swing.BorderFactory.createTitledBorder("To Sync Folder"));
 
         btnSearch.setText("Buscar");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -257,10 +261,10 @@ public class Index extends javax.swing.JFrame {
 
         tbbData.addTab("Lista de archivos", pnlData);
 
-        txtConsole.setBackground(new java.awt.Color(102, 0, 51));
+        txtConsole.setBackground(new java.awt.Color(51, 51, 51));
         txtConsole.setColumns(20);
         txtConsole.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
-        txtConsole.setForeground(new java.awt.Color(255, 153, 0));
+        txtConsole.setForeground(new java.awt.Color(102, 255, 0));
         txtConsole.setRows(5);
         jScrollPane1.setViewportView(txtConsole);
 
@@ -269,12 +273,12 @@ public class Index extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
         );
 
         tbbData.addTab("Consola", jPanel1);
@@ -306,7 +310,7 @@ public class Index extends javax.swing.JFrame {
                             .addComponent(chkCopyAll)
                             .addComponent(chkAddNewFiles)
                             .addComponent(chkInclude))
-                        .addGap(0, 51, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -320,7 +324,7 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(chkInclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtRegexInclude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         tbbData.addTab("Opciones", jPanel2);
@@ -336,6 +340,55 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        pnlFolder1.setBorder(javax.swing.BorderFactory.createTitledBorder("Origin Folder"));
+
+        btnSearch1.setText("Buscar");
+        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch1ActionPerformed(evt);
+            }
+        });
+
+        txtFolderProyect1.setEditable(false);
+        txtFolderProyect1.setBackground(new java.awt.Color(255, 255, 255));
+        txtFolderProyect1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFolderProyect1ActionPerformed(evt);
+            }
+        });
+
+        btnRead1.setText("Leer");
+        btnRead1.setEnabled(false);
+        btnRead1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRead1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFolder1Layout = new javax.swing.GroupLayout(pnlFolder1);
+        pnlFolder1.setLayout(pnlFolder1Layout);
+        pnlFolder1Layout.setHorizontalGroup(
+            pnlFolder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFolder1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSearch1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFolderProyect1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRead1)
+                .addContainerGap())
+        );
+        pnlFolder1Layout.setVerticalGroup(
+            pnlFolder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFolder1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFolder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch1)
+                    .addComponent(txtFolderProyect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRead1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -343,12 +396,13 @@ public class Index extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tbbData)
                     .addComponent(pnlFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbbData, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFix)))
+                        .addComponent(btnFix))
+                    .addComponent(pnlFolder1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -357,7 +411,9 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tbbData, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(pnlFolder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tbbData, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,6 +520,18 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chkCopyAllActionPerformed
 
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearch1ActionPerformed
+
+    private void txtFolderProyect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolderProyect1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFolderProyect1ActionPerformed
+
+    private void btnRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRead1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRead1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -503,7 +571,9 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFix;
     private javax.swing.JButton btnRead;
+    private javax.swing.JButton btnRead1;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearch1;
     private javax.swing.JCheckBox chkAddNewFiles;
     private javax.swing.JCheckBox chkCopyAll;
     private javax.swing.JCheckBox chkInclude;
@@ -514,10 +584,12 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel lblMessage;
     private javax.swing.JScrollPane pnlData;
     private javax.swing.JPanel pnlFolder;
+    private javax.swing.JPanel pnlFolder1;
     private javax.swing.JTabbedPane tbbData;
     private javax.swing.JTable tblData;
     private javax.swing.JTextArea txtConsole;
     private javax.swing.JTextField txtFolderProyect;
+    private javax.swing.JTextField txtFolderProyect1;
     private javax.swing.JTextField txtRegexInclude;
     // End of variables declaration//GEN-END:variables
 }
