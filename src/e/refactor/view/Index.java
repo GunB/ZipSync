@@ -28,7 +28,7 @@ public class Index extends javax.swing.JFrame {
     JFolderChooser chooser;
     java.util.ArrayList<String> fileList;
 
-    public Index() {        
+    public Index() {
         AccionesVentana.LooknFeel();
         initComponents();
         this.nuevo = new AccionesVentana(this, "e-Repackage");
@@ -42,14 +42,28 @@ public class Index extends javax.swing.JFrame {
         System.out.println("Welcome!");
     }
 
-    private void SearchingFolder() {
-        try {
-            this.txtFolderProyect.setText(this.chooser.getStrPath());
-            this.btnRead.setEnabled(true);
-        } catch (Exception ex) {
-            this.btnRead.setEnabled(false);
-            txtFolderProyect.setText("");
+    private void SearchingFolder(Integer intCase) {
+        switch (intCase) {
+            case 1:
+                try {
+                    this.txtFolderProyect.setText(this.chooser.getStrPath());
+                    this.btnRead.setEnabled(true);
+                } catch (Exception ex) {
+                    this.btnRead.setEnabled(false);
+                    txtFolderProyect.setText("");
+                }
+                break;
+            case 2:
+                try {
+                    this.txtFolderOrigen.setText(this.chooser.getStrPath());
+                    this.btnReadOrigen.setEnabled(true);
+                } catch (Exception ex) {
+                    this.btnReadOrigen.setEnabled(false);
+                    txtFolderOrigen.setText("");
+                }
+                break;
         }
+
     }
 
     /**
@@ -81,8 +95,8 @@ public class Index extends javax.swing.JFrame {
         btnFix = new javax.swing.JButton();
         pnlFolder1 = new javax.swing.JPanel();
         btnSearch1 = new javax.swing.JButton();
-        txtFolderProyect1 = new javax.swing.JTextField();
-        btnRead1 = new javax.swing.JButton();
+        txtFolderOrigen = new javax.swing.JTextField();
+        btnReadOrigen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -349,19 +363,19 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        txtFolderProyect1.setEditable(false);
-        txtFolderProyect1.setBackground(new java.awt.Color(255, 255, 255));
-        txtFolderProyect1.addActionListener(new java.awt.event.ActionListener() {
+        txtFolderOrigen.setEditable(false);
+        txtFolderOrigen.setBackground(new java.awt.Color(255, 255, 255));
+        txtFolderOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFolderProyect1ActionPerformed(evt);
+                txtFolderOrigenActionPerformed(evt);
             }
         });
 
-        btnRead1.setText("Leer");
-        btnRead1.setEnabled(false);
-        btnRead1.addActionListener(new java.awt.event.ActionListener() {
+        btnReadOrigen.setText("Leer");
+        btnReadOrigen.setEnabled(false);
+        btnReadOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRead1ActionPerformed(evt);
+                btnReadOrigenActionPerformed(evt);
             }
         });
 
@@ -373,9 +387,9 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnSearch1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFolderProyect1)
+                .addComponent(txtFolderOrigen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRead1)
+                .addComponent(btnReadOrigen)
                 .addContainerGap())
         );
         pnlFolder1Layout.setVerticalGroup(
@@ -384,8 +398,8 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlFolder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch1)
-                    .addComponent(txtFolderProyect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRead1))
+                    .addComponent(txtFolderOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReadOrigen))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -438,7 +452,7 @@ public class Index extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         this.chooser = new JFolderChooser();
         this.chooser.OpenChooser("");
-        SearchingFolder();
+        SearchingFolder(1);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtFolderProyectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolderProyectActionPerformed
@@ -517,20 +531,22 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFixActionPerformed
 
     private void chkCopyAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCopyAllActionPerformed
-        // TODO add your handling code here:
+        this.chooser = new JFolderChooser();
+        this.chooser.OpenChooser("");
+        SearchingFolder(2);
     }//GEN-LAST:event_chkCopyAllActionPerformed
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
-    private void txtFolderProyect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolderProyect1ActionPerformed
+    private void txtFolderOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolderOrigenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFolderProyect1ActionPerformed
+    }//GEN-LAST:event_txtFolderOrigenActionPerformed
 
-    private void btnRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRead1ActionPerformed
+    private void btnReadOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadOrigenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRead1ActionPerformed
+    }//GEN-LAST:event_btnReadOrigenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,7 +587,7 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFix;
     private javax.swing.JButton btnRead;
-    private javax.swing.JButton btnRead1;
+    private javax.swing.JButton btnReadOrigen;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearch1;
     private javax.swing.JCheckBox chkAddNewFiles;
@@ -588,8 +604,8 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tbbData;
     private javax.swing.JTable tblData;
     private javax.swing.JTextArea txtConsole;
+    private javax.swing.JTextField txtFolderOrigen;
     private javax.swing.JTextField txtFolderProyect;
-    private javax.swing.JTextField txtFolderProyect1;
     private javax.swing.JTextField txtRegexInclude;
     // End of variables declaration//GEN-END:variables
 }

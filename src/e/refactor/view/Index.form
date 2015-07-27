@@ -343,9 +343,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSearch1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtFolderProyect1" max="32767" attributes="0"/>
+                      <Component id="txtFolderOrigen" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnRead1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReadOrigen" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -356,8 +356,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSearch1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFolderProyect1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnRead1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFolderOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnReadOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -373,7 +373,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearch1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFolderProyect1">
+            <Component class="javax.swing.JTextField" name="txtFolderOrigen">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -381,16 +381,16 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFolderProyect1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFolderOrigenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnRead1">
+            <Component class="javax.swing.JButton" name="btnReadOrigen">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Leer"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRead1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReadOrigenActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

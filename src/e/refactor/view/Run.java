@@ -32,9 +32,12 @@ import javax.swing.JOptionPane;
 public class Run implements Runnable {
 
     private boolean isCopy = true;
+    
     private String strPath;
+    private String strPathOrigen;
+    
     private JLabel lblData = null;
-    private boolean addFilesNoExisting = false;
+    //private boolean addFilesNoExisting = false;
     private String strRegInclude = "";
 
     final String CHANGE_DIR = "change_files/";
@@ -49,12 +52,16 @@ public class Run implements Runnable {
     public Run(Object params) {
         Object[] objData = (Object[]) params;
 
-        this.isCopy = ((Boolean) objData[2]);
-        this.addFilesNoExisting = ((Boolean) objData[3]);
+        this.lblData = ((JLabel) objData[2]);
+        this.isCopy = ((Boolean) objData[3]);
         this.strRegInclude = ((String) objData[4]);
+        //this.addFilesNoExisting = ((Boolean) objData[3]);
+        
 
         this.strPath = ((String) objData[0]);
-        this.lblData = ((JLabel) objData[1]);
+        this.strPathOrigen = ((String) objData[1]);
+        
+        
     }
 
     private Run() {
@@ -156,6 +163,7 @@ public class Run implements Runnable {
         });
 
         //ArrayList<ZipFile2Change> arrFiles = new ArrayList<>();
+        /*
         for (File file : listFilesForFolder) {
             if (file.getName().endsWith(".zip")) {
                 try {
@@ -166,6 +174,7 @@ public class Run implements Runnable {
                 }
             }
         }
+        //*/
 
         this.newLog.close();
         JOptionPane.showMessageDialog(null, "Operación exitosa");
