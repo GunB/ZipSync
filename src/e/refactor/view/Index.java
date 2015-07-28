@@ -9,10 +9,12 @@ import e.utility.AccionesVentana;
 import e.utility.FilesUtility;
 import e.utility.JFolderChooser;
 import e.utility.TextAreaOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +33,7 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         AccionesVentana.LooknFeel();
         initComponents();
-        this.nuevo = new AccionesVentana(this, "e-Repackage");
+        this.nuevo = new AccionesVentana(this, "e-ZipSync");
         PrintStream con = null;
         try {
             con = new PrintStream(new TextAreaOutputStream(this.txtConsole, 400), true, "UTF-8");
@@ -88,7 +90,6 @@ public class Index extends javax.swing.JFrame {
         txtConsole = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         chkCopyAll = new javax.swing.JCheckBox();
-        chkAddNewFiles = new javax.swing.JCheckBox();
         chkInclude = new javax.swing.JCheckBox();
         txtRegexInclude = new javax.swing.JTextField();
         lblMessage = new javax.swing.JLabel();
@@ -275,10 +276,10 @@ public class Index extends javax.swing.JFrame {
 
         tbbData.addTab("Lista de archivos", pnlData);
 
-        txtConsole.setBackground(new java.awt.Color(51, 51, 51));
+        txtConsole.setBackground(new java.awt.Color(0, 102, 153));
         txtConsole.setColumns(20);
         txtConsole.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
-        txtConsole.setForeground(new java.awt.Color(102, 255, 0));
+        txtConsole.setForeground(new java.awt.Color(102, 204, 255));
         txtConsole.setRows(5);
         jScrollPane1.setViewportView(txtConsole);
 
@@ -287,7 +288,7 @@ public class Index extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,19 +298,17 @@ public class Index extends javax.swing.JFrame {
 
         tbbData.addTab("Consola", jPanel1);
 
-        chkCopyAll.setText("Realizar BackUp de los archivos leídos");
+        chkCopyAll.setText("Realizar BackUp de los archivos leídos [To Sync Folder]");
         chkCopyAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkCopyAllActionPerformed(evt);
             }
         });
 
-        chkAddNewFiles.setSelected(true);
-        chkAddNewFiles.setText("Agregar archivos que no se encuentren en los archivos seleccionados");
-
+        chkInclude.setSelected(true);
         chkInclude.setText("Incluir SOLO archivos por nombre según cumplan con la expresión regular descrita");
 
-        txtRegexInclude.setText("^.*(ob12\\.zip)$");
+        txtRegexInclude.setText("^.*(rec[0-9]{1,2})$");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -322,9 +321,8 @@ public class Index extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkCopyAll)
-                            .addComponent(chkAddNewFiles)
                             .addComponent(chkInclude))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 118, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -333,12 +331,10 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(chkCopyAll)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkAddNewFiles)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkInclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtRegexInclude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         tbbData.addTab("Opciones", jPanel2);
@@ -460,7 +456,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFolderProyectActionPerformed
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
-        java.io.File file = new java.io.File(this.txtFolderProyect.getText());
+        File file = new File(this.txtFolderProyect.getText());
 
         String DriveDesc = FilesUtility.PathRootDesc(file.getPath());
         System.out.println(DriveDesc);
@@ -488,13 +484,14 @@ public class Index extends javax.swing.JFrame {
         this.btnRead.setEnabled(false);
         this.btnSearch.setEnabled(false);
 
-        this.btnFix.setEnabled(true);
+        if (!btnReadOrigen.isEnabled()) {
+            this.btnFix.setEnabled(true);
+        }
+
     }//GEN-LAST:event_btnReadActionPerformed
 
     private void btnFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFixActionPerformed
         this.btnFix.setEnabled(false);
-
-        String strPath = this.txtFolderProyect.getText();
 
         if (!this.chkCopyAll.isSelected()) {
             String strMessaje = "¿Seguro que desea SOBREESCRIBIR los archivos originales?\n(Una vez iniciado el proceso los archivos orignales serán irrecuperables)";
@@ -516,12 +513,18 @@ public class Index extends javax.swing.JFrame {
 
         this.lblMessage.setText("Trabajando...");
 
+        if (txtFolderOrigen.getText().equals(txtFolderProyect.getText())) {
+            JOptionPane.showConfirmDialog(null, "Las dos carpetas son iguales..."
+                    + " corrobore origen y destino", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         Object[] objParams = {
-            strPath,
+            this.txtFolderProyect.getText(),
+            this.txtFolderOrigen.getText(),
             this.lblMessage,
             this.chkCopyAll.isSelected(),
-            this.chkAddNewFiles.isSelected(),
-            chkInclude.isSelected() ? txtRegexInclude.getText() : "*"
+            chkInclude.isSelected() ? txtRegexInclude.getText() : ".*"
         };
 
         this.tbbData.setSelectedIndex(1);
@@ -531,13 +534,13 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFixActionPerformed
 
     private void chkCopyAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCopyAllActionPerformed
-        this.chooser = new JFolderChooser();
-        this.chooser.OpenChooser("");
-        SearchingFolder(2);
+
     }//GEN-LAST:event_chkCopyAllActionPerformed
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
-        // TODO add your handling code here:
+        this.chooser = new JFolderChooser();
+        this.chooser.OpenChooser("");
+        SearchingFolder(2);
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
     private void txtFolderOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolderOrigenActionPerformed
@@ -545,7 +548,24 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFolderOrigenActionPerformed
 
     private void btnReadOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadOrigenActionPerformed
-        // TODO add your handling code here:
+        File file = new File(this.txtFolderOrigen.getText());
+
+        String DriveDesc = FilesUtility.PathRootDesc(file.getPath());
+        System.out.println(DriveDesc);
+
+        if (!DriveDesc.toLowerCase().contains("disco local")) {
+            javax.swing.JOptionPane.showMessageDialog(null, "El proceso debe realizarse en un disco local");
+
+            return;
+        }
+        
+        this.pnlFolder1.setEnabled(false);
+        this.btnReadOrigen.setEnabled(false);
+        this.btnSearch1.setEnabled(false);
+        
+        if (!btnRead.isEnabled()) {
+            this.btnFix.setEnabled(true);
+        }
     }//GEN-LAST:event_btnReadOrigenActionPerformed
 
     /**
@@ -590,7 +610,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton btnReadOrigen;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearch1;
-    private javax.swing.JCheckBox chkAddNewFiles;
     private javax.swing.JCheckBox chkCopyAll;
     private javax.swing.JCheckBox chkInclude;
     private javax.swing.JPanel jPanel1;

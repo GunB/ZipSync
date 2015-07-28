@@ -196,7 +196,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="591" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="553" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -218,14 +218,14 @@
                     <Component class="javax.swing.JTextArea" name="txtConsole">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="33" green="33" red="33" type="rgb"/>
+                          <Color blue="99" green="66" red="0" type="rgb"/>
                         </Property>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Monospaced" size="13" style="1"/>
                         </Property>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="0" green="ff" red="66" type="rgb"/>
+                          <Color blue="ff" green="cc" red="66" type="rgb"/>
                         </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
@@ -246,17 +246,16 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtRegexInclude" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="chkCopyAll" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkAddNewFiles" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkCopyAll" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="chkInclude" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="118" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -269,12 +268,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkCopyAll" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="chkAddNewFiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="chkInclude" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtRegexInclude" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="99" max="32767" attributes="0"/>
+                          <EmptySpace pref="125" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -282,26 +279,21 @@
               <SubComponents>
                 <Component class="javax.swing.JCheckBox" name="chkCopyAll">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Realizar BackUp de los archivos le&#xed;dos"/>
+                    <Property name="text" type="java.lang.String" value="Realizar BackUp de los archivos le&#xed;dos [To Sync Folder]"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkCopyAllActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkAddNewFiles">
-                  <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Agregar archivos que no se encuentren en los archivos seleccionados"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JCheckBox" name="chkInclude">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Incluir SOLO archivos por nombre seg&#xfa;n cumplan con la expresi&#xf3;n regular descrita"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtRegexInclude">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="^.*(ob12\u005c.zip)$" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="^.*(rec[0-9]{1,2})$"/>
                   </Properties>
                 </Component>
               </SubComponents>

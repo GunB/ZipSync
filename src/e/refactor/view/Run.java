@@ -5,14 +5,15 @@
  */
 package e.refactor.view;
 
-import e.refactor.model.ZipFile2Change;
 import e.utility.FilesUtility;
 import e.utility.JFolderChooser;
+import e.utility.ZipUtility;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -32,10 +33,10 @@ import javax.swing.JOptionPane;
 public class Run implements Runnable {
 
     private boolean isCopy = true;
-    
+
     private String strPath;
     private String strPathOrigen;
-    
+
     private JLabel lblData = null;
     //private boolean addFilesNoExisting = false;
     private String strRegInclude = "";
@@ -56,12 +57,10 @@ public class Run implements Runnable {
         this.isCopy = ((Boolean) objData[3]);
         this.strRegInclude = ((String) objData[4]);
         //this.addFilesNoExisting = ((Boolean) objData[3]);
-        
 
         this.strPath = ((String) objData[0]);
         this.strPathOrigen = ((String) objData[1]);
-        
-        
+
     }
 
     private Run() {
@@ -121,61 +120,64 @@ public class Run implements Runnable {
         Init(args);
 
         ArrayList<File> listFilesForFolder = JFolderChooser.listRawFilesForFolder(baseFileDirectory, true);
-        File newFiles = new File(FilesUtility.strRoot.concat(File.separator).concat(CHANGE_DIR));
-        ArrayList<File> listChangeFolder = JFolderChooser.listRawFilesForFolder(newFiles, true);
-        
+        HashMap<String, File> listFilesForOrigen = JFolderChooser.mapRawFilesForFolder(new File(this.strPathOrigen), true);
+
+        ArrayList<String> listChanges = new ArrayList<>();
+
         Pattern p = Pattern.compile(this.strRegInclude);
         listFilesForFolder.removeIf(s -> !p.matcher(s.getName()).matches());
 
         File configFile = new File(FilesUtility.strRoot.concat(File.separator).concat(CONFIG_FILE));
         BufferedReader br;
 
-        HashMap<String, String> arrconfigFile = new HashMap<>();
-        String str2, str1 = null;
-
-        int cont = 0;
         try {
             br = new BufferedReader(new FileReader(configFile));
             String line;
             while ((line = br.readLine()) != null) {
-                cont++;
-                if (cont == 1) {
-                    str1 = line;
-                } else {
-                    str2 = line;
-                    arrconfigFile.put(str2, str1);
-                    cont = 0;
-                }
+                listChanges.add(line);
             }
         } catch (IOException ex) {
             Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        HashMap<String, File> arrConfig = new HashMap<>();
-
-        listChangeFolder.stream().forEach((file) -> {
-            if (arrconfigFile.containsKey(file.getName())) {
-                arrConfig.put(arrconfigFile.get(file.getName()), file);
-                Log("Preparing...: \t[" + file.getName() + "]");
-            } else {
-                Log("NOT FOUND: \t[" + file.getName() + "]");
-            }
-        });
-
-        //ArrayList<ZipFile2Change> arrFiles = new ArrayList<>();
-        /*
         for (File file : listFilesForFolder) {
-            if (file.getName().endsWith(".zip")) {
+            if (listFilesForOrigen.containsKey(file.getName())) {
+                File fileOrigen = listFilesForOrigen.get(file.getName());
                 try {
-                    new ZipFile2Change(file, new HashMap<>(arrConfig), addFilesNoExisting).SaveChanges();
-                    Log("Saving Changes: \t[" + file.getName() + "]");
+                    ZipUtility zip = new ZipUtility(fileOrigen);
+                    HashMap<String, Object> inputs = zip.ReadFiles(listChanges);
+                    Log("Archivo [Reading]:\t" + fileOrigen.getAbsolutePath());
+
+                    ZipUtility zip2 = new ZipUtility(file);
+                    zip2.WriteFiles(inputs, true);
+                    Log("Archivo  [Saving]:\t" + file.getAbsolutePath());
+                    
+                    zip.CloseFiles();
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+                    Log("Archivo [ERROR DE LECTURA]:\t" + file.getAbsolutePath() + "\n" + ex.getLocalizedMessage());
                 }
+
+            } else {
+                Log("Archivo [NO-ENCONTRADO]:\t" + file.getName());
             }
         }
-        //*/
 
+        /*
+         listChangeFolder.stream().forEach((file) -> {
+         if (arrconfigFile.containsKey(file.getName())) {
+         arrConfig.put(arrconfigFile.get(file.getName()), file);
+         Log("Preparing...: \t[" + file.getName() + "]");
+         } else {
+         Log("NOT FOUND: \t[" + file.getName() + "]");
+         }
+         });
+
+         //ArrayList<ZipFile2Change> arrFiles = new ArrayList<>();
+        
+        
+         //*/
         this.newLog.close();
         JOptionPane.showMessageDialog(null, "Operación exitosa");
         System.exit(0);

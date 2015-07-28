@@ -9,7 +9,6 @@ import e.utility.ZipUtility;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
 /**
@@ -18,29 +17,20 @@ import java.util.HashMap;
  */
 public class ZipFile2Change {
     ZipUtility zipFile;
-    HashMap<String, File> fileChanges;
+    HashMap<String, Object> fileChanges;
     boolean addFilesNoExisting;
 
-    public ZipFile2Change(File fileChange, HashMap<String, File> fileChanges, Boolean addFilesNoExisting) throws IOException {
+    public ZipFile2Change(File fileChange, HashMap<String, Object> fileChanges, Boolean addFilesNoExisting) throws IOException {
         this.zipFile = new ZipUtility(fileChange);
         this.fileChanges = fileChanges;
         this.addFilesNoExisting = addFilesNoExisting;
     }
 
-    public HashMap<String, File> getFileChanges() {
+    public HashMap<String, Object> getFileChanges() {
         return fileChanges;
     }
 
-    public void setFileChanges(HashMap<String, File> fileChanges) throws FileNotFoundException {
-        
-        HashMap<String, InputStream> fileChanges2 = new HashMap<>();
-        
-        /*for (Map.Entry<String, File> entry : fileChanges.entrySet()) {
-                String key = entry.getKey();
-                File value = entry.getValue();
-                fileChanges2.put(key, new FileInputStream(value));
-        }*/
-        
+    public void setFileChanges(HashMap<String, Object> fileChanges) throws FileNotFoundException {        
         this.fileChanges = fileChanges;
     }
 

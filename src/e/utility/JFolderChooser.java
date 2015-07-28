@@ -2,6 +2,7 @@ package e.utility;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JFileChooser;
 
 public class JFolderChooser {
@@ -78,6 +79,22 @@ public class JFolderChooser {
                 }
             } else {
                 arrData.add(fileEntry);
+            }
+        }
+
+        return arrData;
+    }
+    
+    public static HashMap<String, File> mapRawFilesForFolder(File folder, boolean isRecursive) {
+        HashMap<String, File> arrData = new HashMap();
+
+        for (File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                if (isRecursive) {
+                    arrData.putAll(mapRawFilesForFolder(fileEntry, isRecursive));
+                }
+            } else {
+                arrData.put(fileEntry.getName(),fileEntry);
             }
         }
 
