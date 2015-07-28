@@ -1,1 +1,1 @@
-basic-90/licence.txt
+assets/sena/scos/licence.txt
