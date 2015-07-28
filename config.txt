@@ -1,1 +1,1 @@
-assets/sena/scos/licence.txt
+.*licence.{0,4}$
