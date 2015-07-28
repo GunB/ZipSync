@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -77,8 +79,9 @@ public class Run implements Runnable {
             this.newLog.println(timeStamp + " - " + strLog);
         } catch (NullPointerException ex) {
             Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
-
         }
+
+        System.out.println(strLog);
     }
 
     public static void main(String[] args) {
@@ -141,19 +144,26 @@ public class Run implements Runnable {
         }
 
         for (File file : listFilesForFolder) {
-            if (listFilesForOrigen.containsKey(file.getName())) {
+            if (file.getName().endsWith(".zip") && listFilesForOrigen.containsKey(file.getName())) {
                 File fileOrigen = listFilesForOrigen.get(file.getName());
                 try {
                     ZipUtility zip = new ZipUtility(fileOrigen);
                     HashMap<String, Object> inputs = zip.ReadFiles(listChanges);
+
+                    String toString = "";
+                    for (String set : inputs.keySet()) {
+                        toString = toString.concat(set);
+                    }
+
                     Log("Archivo [Reading]:\t" + fileOrigen.getAbsolutePath());
+                    Log("Archivo    [Data]:\t" + toString);
 
                     ZipUtility zip2 = new ZipUtility(file);
                     zip2.WriteFiles(inputs, true);
                     Log("Archivo  [Saving]:\t" + file.getAbsolutePath());
-                    
+
                     zip.CloseFiles();
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
                     Log("Archivo [ERROR DE LECTURA]:\t" + file.getAbsolutePath() + "\n" + ex.getLocalizedMessage());

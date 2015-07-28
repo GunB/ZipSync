@@ -287,9 +287,7 @@ public class Index extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +306,7 @@ public class Index extends javax.swing.JFrame {
         chkInclude.setSelected(true);
         chkInclude.setText("Incluir SOLO archivos por nombre según cumplan con la expresión regular descrita");
 
-        txtRegexInclude.setText("^.*(rec[0-9]{1,2})$");
+        txtRegexInclude.setText("^.*(re[0-9]{1,2})\\.zip$");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -322,7 +320,7 @@ public class Index extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkCopyAll)
                             .addComponent(chkInclude))
-                        .addGap(0, 118, Short.MAX_VALUE)))
+                        .addGap(0, 188, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -406,13 +404,13 @@ public class Index extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tbbData)
                     .addComponent(pnlFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFix))
-                    .addComponent(pnlFolder1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlFolder1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbbData, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -484,7 +482,7 @@ public class Index extends javax.swing.JFrame {
         this.btnRead.setEnabled(false);
         this.btnSearch.setEnabled(false);
 
-        if (!btnReadOrigen.isEnabled()) {
+        if (!btnSearch1.isEnabled()) {
             this.btnFix.setEnabled(true);
         }
 
@@ -563,7 +561,7 @@ public class Index extends javax.swing.JFrame {
         this.btnReadOrigen.setEnabled(false);
         this.btnSearch1.setEnabled(false);
         
-        if (!btnRead.isEnabled()) {
+        if (!btnSearch.isEnabled()) {
             this.btnFix.setEnabled(true);
         }
     }//GEN-LAST:event_btnReadOrigenActionPerformed
